@@ -179,7 +179,7 @@ Use the same TortoiseBot and LIDAR setup to follow a moving red ball: detect the
    5. If the distance is greater than **1.8**, publish `linear.x = 1.0` to move forward, and stop when closer.
 4. **Create the ball.** `urdf/ball.urdf` is a red sphere with the `libgazebo_ros_planar_move.so` plugin, so it moves from velocity commands on `/ball/cmd_vel`.
 5. **Move the ball** with `teleop_twist_keyboard` remapped to `/ball/cmd_vel`, or with `scripts/ball_move.py`, which publishes to `/ball/cmd_vel` to move the ball in a circle.
-6. **Create the common launch file** `launch/task3_tortoisebot.launch.py`. It starts:
+6. **Create the common launch file** `launch/ballfollow_tortoisebot.launch.py`. It starts:
    - `gazebo.launch.py`
    - `finding_obstracle.py`
    - `object_follow.py`
@@ -199,7 +199,7 @@ Use the same TortoiseBot and LIDAR setup to follow a moving red ball: detect the
    ```
 9. **Run the common launch file**
    ```bash
-   ros2 launch my_bot_sim task3_tortoisebot.launch.py
+   ros2 launch my_bot_sim ballfollow_tortoisebot.launch.py
    ```
    If the ball is not moving (`ball_move.py` is not running), drive it with the keyboard:
    ```bash
@@ -226,3 +226,4 @@ Full-length videos:
 |---|---|
 | While turning to face the ball, the bot used the offset and object angle to compute the error, but oscillated instead of settling. | Use a **PD controller** instead of proportional-only control. The derivative term reduces overshoot from inertia, and the integral term was not needed. |
 | *Alternative:* lowering `angular.z` also stops the oscillation. | It only works for slow objects. It is too slow and not responsive enough for a fast-moving object. |
+# Ros2_Humble_Mobile_Bot
