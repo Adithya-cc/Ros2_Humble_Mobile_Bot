@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<robot name="moving_ball">
+
+    <material name="red">
+        <color rgba="1.0 0.0 0.0 1.0"/>
+    </material>
+
+    <link name="ball">
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/> 
+            <mass value="2.0"/>
+            <inertia ixx="0.2" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0.2"/>
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <sphere radius="0.5"/>
+            </geometry>
+            <material name="red"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <sphere radius="0.5"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <gazebo reference="ball">
+        <material>Gazebo/Red</material>
+        <mu1>0.01</mu1>
+        <mu2>0.01</mu2>
+        <kp>1000000.0</kp>
+        <kd>1.0</kd>
+            
+        <angularDamping>0.05</angularDamping>
+    </gazebo>
+
+    <gazebo>
+        <plugin name="ball_controller" filename="libgazebo_ros_planar_move.so">
+            <ros>
+                <namespace>/ball</namespace>
+            </ros>
+            <update_rate>100</update_rate>
+            <publish_rate>10</publish_rate>
+            <publish_odom>true</publish_odom>
+            <publish_odom_tf>true</publish_odom_tf>
+            <odometry_frame>odom</odometry_frame>
+            <robot_base_frame>ball</robot_base_frame>
+        </plugin>
+    </gazebo>
+
+</robot>
